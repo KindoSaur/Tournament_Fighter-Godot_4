@@ -1,0 +1,80 @@
+[gd_scene load_steps=15 format=3 uid="uid://lyel5ypy41eo"]
+
+[ext_resource type="Texture2D" uid="uid://bhf6vm2d2vp4f" path="res://Assets/Textures/Characters/Ryu/EDIT_Ryu_Sprite_Sheet.png" id="1_8jsrn"]
+[ext_resource type="Animation" uid="uid://b4eys57s86pe6" path="res://Assets/Animations/Characters/Ryu/Ryu_Idle_Anim.res" id="2_6fo6a"]
+[ext_resource type="Animation" uid="uid://cvcw4lp5sl7sc" path="res://Assets/Animations/Characters/Ryu/Ryu_Crouch_Kick_Anim.res" id="3_cis5c"]
+[ext_resource type="Animation" uid="uid://bw3p2835yuqdw" path="res://Assets/Animations/Characters/Ryu/Ryu_Kick_Anim.res" id="3_g1uv6"]
+[ext_resource type="Animation" uid="uid://b0mkx0vrbmet8" path="res://Assets/Animations/Characters/Ryu/Ryu_Punch_Anim.res" id="4_pgbhm"]
+[ext_resource type="Animation" uid="uid://cxmjc1ilif1nb" path="res://Assets/Animations/Characters/Ryu/Ryu_Crouch_Punch_Anim.res" id="4_uh01o"]
+[ext_resource type="Animation" uid="uid://cib2maksgs4dv" path="res://Assets/Animations/Characters/Ryu/Ryu_Shouryuken_Anim.res" id="5_cx7oe"]
+[ext_resource type="Animation" uid="uid://be1uslhthxnwe" path="res://Assets/Animations/Characters/Ryu/Ryu_Goes_Crouch_Anim.res" id="6_y1s8j"]
+[ext_resource type="Animation" uid="uid://b8h1l6mix1ku0" path="res://Assets/Animations/Characters/Ryu/Ryu_Crouch_Anim.res" id="7_8h6qf"]
+[ext_resource type="Animation" uid="uid://bs7syrwhn65uj" path="res://Assets/Animations/Characters/Ryu/Ryu_Jump_Anim.res" id="8_jiw05"]
+[ext_resource type="Animation" uid="uid://cbddxykjhe3q6" path="res://Assets/Animations/Characters/Ryu/Ryu_Goes_Idle_Anim.res" id="8_v1r5g"]
+[ext_resource type="Script" path="res://Assets/Scripts/GDScript/RyuInputHandler.gd" id="9_dfaen"]
+
+[sub_resource type="Animation" id="Animation_vmjrf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(983, 0, 43, 109)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -109)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tndva"]
+_data = {
+"RESET": SubResource("Animation_vmjrf"),
+"Ryu_Crouch_Anim": ExtResource("7_8h6qf"),
+"Ryu_Crouch_Kick_Anim": ExtResource("3_cis5c"),
+"Ryu_Crouch_Punch_Anim": ExtResource("4_uh01o"),
+"Ryu_Goes_Crouch_Anim": ExtResource("6_y1s8j"),
+"Ryu_Goes_Idle_Anim": ExtResource("8_v1r5g"),
+"Ryu_Idle_Anim": ExtResource("2_6fo6a"),
+"Ryu_Jump_Anim": ExtResource("8_jiw05"),
+"Ryu_Kick_Anim": ExtResource("3_g1uv6"),
+"Ryu_Punch_Anim": ExtResource("4_pgbhm"),
+"Ryu_Shouryuken_Anim": ExtResource("5_cx7oe")
+}
+
+[node name="Player" type="Node2D"]
+
+[node name="Graphics" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="Graphics"]
+texture_filter = 1
+texture = ExtResource("1_8jsrn")
+centered = false
+offset = Vector2(0, -109)
+region_enabled = true
+region_rect = Rect2(983, 0, 43, 109)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Graphics"]
+libraries = {
+"": SubResource("AnimationLibrary_tndva")
+}
+autoplay = "Ryu_Idle_Anim"
+
+[node name="Input Handler" type="Node" parent="." node_paths=PackedStringArray("_animPlayer")]
+script = ExtResource("9_dfaen")
+_characterName = "Ryu"
+_animPlayer = NodePath("../Graphics/AnimationPlayer")

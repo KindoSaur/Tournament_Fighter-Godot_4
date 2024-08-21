@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cglk6eycqqkrn"]
+
+[ext_resource type="PackedScene" uid="uid://lyel5ypy41eo" path="res://Assets/Prefabs/Character.tscn" id="1_kirpd"]
+[ext_resource type="Texture2D" uid="uid://dugerg40cn28a" path="res://Assets/Textures/Stages/Fei_Long_TEXT.png" id="2_exkgm"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_kirpd")]
+position = Vector2(500, 590)
+
+[node name="Stage Background" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+position = Vector2(0, -7)
+scale = Vector2(3.275, 3.275)
+texture = ExtResource("2_exkgm")
+centered = false
